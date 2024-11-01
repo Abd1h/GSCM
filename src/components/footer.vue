@@ -2,5 +2,5 @@
 //
 </script>
 <template>
-  <div>testing</div>
+  <div>FOOTER</div>
 </template>
