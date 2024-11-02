@@ -27,10 +27,10 @@
           <!-- Color Toggle Buttons -->
           <div class="d-flex">
             <v-btn variant="text" class="theme--light custom-btn">
-              <v-icon size="10">mdi-theme-light-dark</v-icon>
+              <v-icon size="1.1rem">mdi-theme-light-dark</v-icon>
             </v-btn>
             <v-btn variant="text" class="v-icon--link theme--light custom-btn">
-              <v-icon>mdi-invert-colors</v-icon>
+              <v-icon size="1.1rem">mdi-invert-colors</v-icon>
             </v-btn>
           </div>
         </v-col>
@@ -54,11 +54,11 @@
 
 <script setup lang="ts">
 interface SocialMediaLink {
-  href: string; // The link to the social media platform
-  icon: string; // The icon class for the button
+  href: string;
+  icon: string;
 }
 
-// Create an array of social media links
+// an array of social media links
 const socialMediaLinks: SocialMediaLink[] = [
   {
     href: "https://www.facebook.com/governmentwebsit",
@@ -116,9 +116,8 @@ const socialMediaLinks: SocialMediaLink[] = [
 }
 
 .custom-btn {
-  font-size: 1rem;
   min-width: auto;
-  padding: 0 0.5rem;
+  padding: 0 0.3rem;
   height: auto;
   color: #9b9b9b;
 }
