@@ -1,10 +1,11 @@
 <template>
   <v-container>
     <v-carousel
+      hide-delimiter-background
       class="rounded-lg"
       height="70vh"
       show-arrows="hover"
-      hide-delimiter-background
+      cycle
     >
       <v-carousel-item v-for="(slide, i) in sliderData" :key="i" cover>
         <v-sheet
@@ -80,8 +81,9 @@ const parseSliderElement = (element: any): SliderInfo => {
 
 const fetchSliderData = async () => {
   try {
-    const response = await apiService.fetchSlider("ar");
+    const response = await apiService.fetchNews("ar", true);
     const items = response?.data?.items;
+    console.log(items);
 
     if (items) {
       sliderData.value = items.map(parseSliderElement);

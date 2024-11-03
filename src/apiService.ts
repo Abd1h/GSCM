@@ -18,25 +18,25 @@ export const apiService = {
       }
     );
   },
-  fetchSlider(language: string) {
+  fetchNews(language: string, isFeature: boolean) {
     // IsFeature=false&CategorySlug=news&Language=ar&MaxResultCount=5
     ///api/app/dynamic-content/by-filters?Language=ar&IsFeature=true
     return apiClient.get(`/api/app/dynamic-content/by-filters`, {
       params: {
         Language: language,
-        IsFeature: true,
+        IsFeature: isFeature,
         MaxResultCount: 5,
         CategorySlug: "news",
       },
     });
   },
-  fetchNews(language: string) {
-    return apiClient.get(`/app/dynamic-content/by-filters`, {
-      params: {
-        Language: language,
-      },
-    });
-  },
+  // fetchNews(language: string) {
+  //   return apiClient.get(`/app/dynamic-content/by-filters`, {
+  //     params: {
+  //       Language: language,
+  //     },
+  //   });
+  // },
   fetchFooter(language: string) {
     return apiClient.get(`/app/footer`, {
       params: { Language: language },
