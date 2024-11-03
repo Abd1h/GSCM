@@ -5,7 +5,3 @@
     <News />
   </div>
 </template>
-
-<style scoped>
-/* Page-specific styles (SCSS or CSS) */
-</style>

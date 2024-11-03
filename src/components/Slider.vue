@@ -83,8 +83,6 @@ const fetchSliderData = async () => {
   try {
     const response = await apiService.fetchNews("ar", true);
     const items = response?.data?.items;
-    console.log(items);
-
     if (items) {
       sliderData.value = items.map(parseSliderElement);
     } else {

@@ -23,6 +23,15 @@ const socialMediaLinks: SocialMediaLink[] = [
     icon: "mdi-send",
   },
 ];
+
+const flipWebsite = () => {
+  document.body.style.transform = "rotate(180deg)"; // Flip the entire body
+  document.body.style.transformOrigin = "center"; // Set the pivot point to the center
+};
+const resetWebsite = () => {
+  document.body.style.transform = ""; // Reset the transform style
+  document.body.style.transformOrigin = ""; // Reset the transform origin
+};
 </script>
 <template>
   <v-card dir="rtl" class="background-image">
@@ -47,8 +56,8 @@ const socialMediaLinks: SocialMediaLink[] = [
           <!-- Language Selector -->
           <div class="d-flex mx-2">
             <span class="pr-4">EN</span>
-            <span class="pr-4">KR</span>
-            <span class="pr-4">AR</span>
+            <span class="pr-4 cursor-pointer" @click="flipWebsite">KR</span>
+            <span class="pr-4 cursor-pointer" @click="resetWebsite">AR</span>
           </div>
           <!-- Color Toggle Buttons -->
           <div class="d-flex">
