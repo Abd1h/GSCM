@@ -26,7 +26,7 @@ export const apiService = {
         Language: language,
         IsFeature: true,
         MaxResultCount: 5,
-        SkipCount: 1,
+        CategorySlug: "news",
       },
     });
   },
