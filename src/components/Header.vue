@@ -1,3 +1,29 @@
+<script setup lang="ts">
+interface SocialMediaLink {
+  href: string;
+  icon: string;
+}
+
+// an array of social media links
+const socialMediaLinks: SocialMediaLink[] = [
+  {
+    href: "https://www.facebook.com/governmentwebsit",
+    icon: "mdi-facebook",
+  },
+  {
+    href: "https://www.youtube.com/@Iraqigov",
+    icon: "mdi-youtube",
+  },
+  {
+    href: "#",
+    icon: "mdi-twitter",
+  },
+  {
+    href: "https://t.me/cabinetmedia",
+    icon: "mdi-send",
+  },
+];
+</script>
 <template>
   <v-card dir="rtl" class="background-image">
     <v-container style="min-width: 85%">
@@ -51,33 +77,6 @@
     </v-container>
   </v-card>
 </template>
-
-<script setup lang="ts">
-interface SocialMediaLink {
-  href: string;
-  icon: string;
-}
-
-// an array of social media links
-const socialMediaLinks: SocialMediaLink[] = [
-  {
-    href: "https://www.facebook.com/governmentwebsit",
-    icon: "mdi-facebook",
-  },
-  {
-    href: "https://www.youtube.com/@Iraqigov",
-    icon: "mdi-youtube",
-  },
-  {
-    href: "#",
-    icon: "mdi-twitter",
-  },
-  {
-    href: "https://t.me/cabinetmedia",
-    icon: "mdi-send",
-  },
-];
-</script>
 
 <style scoped>
 .background-image {
