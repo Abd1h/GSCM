@@ -37,7 +37,6 @@ const fetchNewsData = async () => {
     } else {
       console.warn("No items found in the response");
     }
-    console.log(newsData.value);
   } catch (error) {
     console.error("Error fetching news data:", error);
   }
@@ -59,12 +58,13 @@ onMounted(fetchNewsData);
           <div
             v-for="(news, i) in newsData"
             :key="i"
-            class="rounded-b-lg pa-4"
+            class="px-5 pb-5"
+            :class="{ 'pt-5': i === 0 }"
             style="background-color: #f6f6f6"
           >
-            <v-card dir="rtl">
+            <v-card dir="rtl" flat>
               <v-row class="pa-2">
-                <v-col cols="5" class="pa-0 d-print-inline-block">
+                <v-col cols="5" class="pa-4 d-print-inline-block">
                   <div
                     class="background-image rounded-lg"
                     :style="{
@@ -81,15 +81,15 @@ onMounted(fetchNewsData);
                   </v-card-title>
 
                   <v-card-item>
-                    <div class="d-flex ga-4 opacity-70">
+                    <div class="d-flex ga-4 opacity-60">
                       <div>
-                        <v-icon class="pl-1" size="16"
+                        <v-icon class="pl-1" size="14"
                           >mdi-calendar-range</v-icon
                         >
                         <spand>{{ news.newsCardDate }}</spand>
                       </div>
                       <div>
-                        <v-icon class="pl-1" size="16">
+                        <v-icon class="pl-1" size="14">
                           mdi-tag-outline
                         </v-icon>
                         <spand>{{ news.newsCardContentType }}</spand>
@@ -103,8 +103,8 @@ onMounted(fetchNewsData);
 
                   <v-card-actions class="justify-end">
                     <a
-                      class="border pa-1 rounded-lg opacity-70"
-                      text="اكمل القرائة"
+                      class="border pa-1 rounded-lg opacity-60"
+                      text="اكمل القراءة"
                       variant="text"
                     ></a>
                   </v-card-actions>

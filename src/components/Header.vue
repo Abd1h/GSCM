@@ -25,12 +25,14 @@ const socialMediaLinks: SocialMediaLink[] = [
 ];
 
 const flipWebsite = () => {
-  document.body.style.transform = "rotate(180deg)"; // Flip the entire body
-  document.body.style.transformOrigin = "center"; // Set the pivot point to the center
+  document.body.style.transform = "rotate(180deg)";
+  document.body.style.transformOrigin = "center";
+  document.body.style.width = "100vw";
+  document.body.style.height = "100vh";
 };
 const resetWebsite = () => {
-  document.body.style.transform = ""; // Reset the transform style
-  document.body.style.transformOrigin = ""; // Reset the transform origin
+  document.body.style.transform = "";
+  document.body.style.transformOrigin = "";
 };
 </script>
 <template>
@@ -100,27 +102,6 @@ const resetWebsite = () => {
   background-size: contain !important; /* Keep the original size of the image */
 
   height: 134px;
-}
-
-.logo {
-  background-image: url("src/assets/img/logo.gif");
-  width: 150px !important;
-  height: 130px;
-  background-size: contain;
-}
-
-.logo-2 {
-  background-image: url("src/assets/img/logo2.png");
-  width: 250px;
-  background-size: contain;
-  height: 130px;
-}
-.media-icons {
-  font: normal normal normal 24px / 1 "Material Design Icons";
-  font-size: inherit;
-  text-rendering: auto;
-  line-height: inherit;
-  color: #9b9b9b;
 }
 
 .custom-btn {

@@ -19,3 +19,23 @@ body {
 .ma-64 {
   margin: 64px !important;
 }
+.logo {
+  background-image: url("src/assets/img/logo.gif");
+  width: 150px !important;
+  height: 130px;
+  background-size: contain;
+}
+
+.logo-2 {
+  background-image: url("src/assets/img/logo2.png");
+  width: 250px;
+  background-size: contain;
+  height: 130px;
+}
+.media-icons {
+  font: normal normal normal 24px / 1 "Material Design Icons";
+  font-size: inherit;
+  text-rendering: auto;
+  line-height: inherit;
+  color: #9b9b9b;
+}

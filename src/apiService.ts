@@ -30,16 +30,10 @@ export const apiService = {
       },
     });
   },
-  // fetchNews(language: string) {
-  //   return apiClient.get(`/app/dynamic-content/by-filters`, {
-  //     params: {
-  //       Language: language,
-  //     },
-  //   });
-  // },
-  fetchFooter(language: string) {
-    return apiClient.get(`/app/footer`, {
-      params: { Language: language },
+
+  fetchFooter(language: string, FooterCol: string) {
+    return apiClient.get(`/api/app/navigation/tree-grouped-by-nav-type?`, {
+      params: { Language: language, NavTypeSlugs: FooterCol },
     });
   },
 };
