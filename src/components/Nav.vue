@@ -1,7 +1,7 @@
 <script lang="ts" setup>
-import { ref, onMounted } from "vue";
+import { ref, onMounted, computed } from "vue";
 import { apiService } from "@/apiService";
-
+import { useDisplay } from "vuetify";
 interface Language {
   name: string; // Display name, e.g., "دوائر الأمانة العامة ولجانها"
   language: string; // Language code, e.g., "ar"
@@ -26,18 +26,16 @@ onMounted(async () => {
     console.error("Error fetching navigation:", error);
   }
 });
-//
-// const array = ref([1, 2, 3, 2, 32]);
-// navigationData.value.forEach((element) => {
-//   console.log("testttttttttt");
-//   console.log(element, 1);
-// });
+
 const isSearchActive = ref<boolean>(false);
 const isNavLinksActive = ref<boolean>(false);
+
 const toggleSearch = () => {
   isSearchActive.value = !isSearchActive.value;
   isNavLinksActive.value = isSearchActive.value; //TEMMMMMMMP
 };
+const { mdAndUp } = useDisplay();
+const isVertical = computed(() => !mdAndUp.value);
 </script>
 <template>
   <v-toolbar
@@ -50,7 +48,6 @@ const toggleSearch = () => {
       style="min-width: 85%"
       class="d-flex justify-center align-center"
     >
-      <v-app-bar-nav-icon class="ml-n3"></v-app-bar-nav-icon>
       <!-- Search Icon -->
       <v-btn v-if="!isSearchActive" icon @click="toggleSearch">
         <v-icon>mdi-magnify</v-icon>
@@ -74,37 +71,29 @@ const toggleSearch = () => {
         ></v-text-field>
       </v-card-text>
 
-      <!-- nav links -->
-      <v-row
-        style="align-content: center; min-width: auto"
-        class="d-none d-lg-flex flex-0-1"
-        v-if="!isSearchActive"
-        no-gutters
-      >
-        <v-col
-          class="px-1"
-          v-for="navLink in navigationData"
-          :key="navLink.language.name"
-          cols="auto"
-        >
-          <v-btn
-            :href="navLink.language.url"
-            :target="navLink.language.target"
-            slim
-            density="default"
-          >
-            {{ navLink.language.name }}
-          </v-btn>
-        </v-col>
-        <v-col cols="auto">
-          <v-btn :href="'/'" :target="'_self'" slim density="default">
-            الرئيسية
-          </v-btn>
-        </v-col>
-      </v-row>
+      <!-- Call NavList with isVertical prop based on screen size -->
+      <v-menu v-if="isVertical" transition="slide-x-transition">
+        <template v-slot:activator="{ props }">
+          <v-app-bar-nav-icon class="ml-n3" v-bind="props"></v-app-bar-nav-icon>
+        </template>
+
+        <NavList
+          :navigationData="navigationData"
+          :isSearchActive="isSearchActive"
+          :isVertical="true"
+        />
+      </v-menu>
+
+      <!-- Horizontal NavList for large screens -->
+      <NavList
+        v-else
+        :navigationData="navigationData"
+        :isSearchActive="isSearchActive"
+        :isVertical="false"
+      />
 
       <div
-        v-if="!isSearchActive && !isNavLinksActive"
+        v-if="!isSearchActive && isVertical"
         class="d-flex logo-nav ml-auto"
       ></div>
     </v-container>

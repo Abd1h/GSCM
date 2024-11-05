@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { ref, getCurrentInstance } from "vue";
 interface SocialMediaLink {
   href: string;
   icon: string;
@@ -34,6 +35,15 @@ const resetWebsite = () => {
   document.body.style.transform = "";
   document.body.style.transformOrigin = "";
 };
+
+const isDarkTheme = ref(false);
+const toggleTheme = () => {
+  // const vuetify =
+  //   getCurrentInstance().appContext.config.globalProperties.$vuetify;
+  isDarkTheme.value = !isDarkTheme.value;
+  // console.log(isDarkTheme.value);
+  // vuetify.theme.dark = isDarkTheme.value;
+};
 </script>
 <template>
   <v-card dir="rtl" class="background-image">
@@ -63,7 +73,11 @@ const resetWebsite = () => {
           </div>
           <!-- Color Toggle Buttons -->
           <div class="d-flex">
-            <v-btn variant="text" class="theme--light custom-btn">
+            <v-btn
+              variant="text"
+              class="theme--light custom-btn"
+              @click="toggleTheme"
+            >
               <v-icon size="1.1rem">mdi-theme-light-dark</v-icon>
             </v-btn>
             <v-btn variant="text" class="v-icon--link theme--light custom-btn">

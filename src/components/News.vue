@@ -1,4 +1,8 @@
 <script setup lang="ts">
+onMounted(async () => {
+  const res = await apiService.fetchh();
+  console.log(111111111111, res);
+});
 import { ref, onMounted } from "vue";
 import { apiService } from "@/apiService";
 

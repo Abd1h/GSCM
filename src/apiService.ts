@@ -27,6 +27,7 @@ export const apiService = {
         IsFeature: isFeature,
         MaxResultCount: 5,
         CategorySlug: "news",
+        // DynamicContentSlug: "y2N8r0-uSKS0Ggc",
       },
     });
   },
@@ -35,5 +36,10 @@ export const apiService = {
     return apiClient.get(`/api/app/navigation/tree-grouped-by-nav-type?`, {
       params: { Language: language, NavTypeSlugs: FooterCol },
     });
+  },
+  fetchh() {
+    return apiClient.get(
+      `/api/app/dynamic-content/by-filters?DynamicContentSlug=y2N8r0-uSKS0Ggc&Language=ar`
+    );
   },
 };
