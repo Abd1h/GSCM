@@ -3,9 +3,9 @@ onMounted(async () => {
   const res = await apiService.fetchh();
   console.log(111111111111, res);
 });
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { apiService } from "@/apiService";
-
+import { useGlobalState } from "@/useGolbalState";
 interface NewsCardInfo {
   newsImage: string | undefined;
   newsCardTitle: string | undefined;
@@ -31,9 +31,10 @@ const parseNewsElement = (element: any): NewsCardInfo => {
   };
 };
 
-const fetchNewsData = async () => {
+const { currentLanguage } = useGlobalState();
+const fetchNewsData = async (language: string) => {
   try {
-    const response = await apiService.fetchNews("ar", false);
+    const response = await apiService.fetchNews(language, false);
     const items = response?.data?.items;
 
     if (items) {
@@ -46,7 +47,13 @@ const fetchNewsData = async () => {
   }
 };
 
-onMounted(fetchNewsData);
+onMounted(() => {
+  fetchNewsData(currentLanguage.value);
+});
+watch(
+  () => currentLanguage.value,
+  (newLanguage) => fetchNewsData(newLanguage)
+);
 </script>
 
 <template>

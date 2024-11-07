@@ -30,15 +30,13 @@ const setNavigationData = async (language: string) => {
   }
 };
 
-onMounted(async () => {
-  await setNavigationData(currentLanguage.value);
+onMounted(() => {
+  setNavigationData(currentLanguage.value);
 });
 
 watch(
   () => currentLanguage.value,
-  (newLanguage) => {
-    setNavigationData(newLanguage);
-  }
+  (newLanguage) => setNavigationData(newLanguage)
 );
 
 const isSearchActive = ref<boolean>(false);

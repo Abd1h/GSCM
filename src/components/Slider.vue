@@ -1,6 +1,7 @@
 <script setup lang="ts">
-import { ref, onMounted } from "vue";
+import { ref, onMounted, watch } from "vue";
 import { apiService } from "@/apiService";
+import { useGlobalState } from "@/useGolbalState";
 
 interface SliderInfo {
   sliderImage: string | undefined;
@@ -27,10 +28,10 @@ const parseSliderElement = (element: any): SliderInfo => {
     sliderCardDate,
   };
 };
-
-const fetchSliderData = async () => {
+const { currentLanguage } = useGlobalState();
+const fetchSliderData = async (language: string) => {
   try {
-    const response = await apiService.fetchNews("ar", true);
+    const response = await apiService.fetchNews(language, true);
     const items = response?.data?.items;
     if (items) {
       sliderData.value = items.map(parseSliderElement);
@@ -41,7 +42,13 @@ const fetchSliderData = async () => {
     console.error("Error fetching slider data:", error);
   }
 };
-onMounted(fetchSliderData);
+onMounted(() => {
+  fetchSliderData(currentLanguage.value);
+});
+watch(
+  () => currentLanguage.value,
+  (newLanguage) => fetchSliderData(newLanguage)
+);
 </script>
 <template>
   <v-container>

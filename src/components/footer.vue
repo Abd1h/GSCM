@@ -1,3 +1,76 @@
+<script setup lang="ts">
+import { ref, onMounted, watch } from "vue";
+import { apiService } from "@/apiService";
+import { useGlobalState } from "@/useGolbalState";
+const footerData = ref<FooterInfo[]>([]);
+
+interface FooterInfo {
+  footerTitle?: string;
+  footerLinks?: string[];
+}
+interface NavigationItem {
+  language: {
+    name: string;
+  };
+}
+
+const { currentLanguage } = useGlobalState();
+const fetchFooterData = async (language: string) => {
+  try {
+    const footerCols = ["footer-3", "footer-2", "footer-1"];
+    footerCols.forEach(async (key) => {
+      const response = await apiService.fetchFooter(language, key);
+      const resData = response?.data.items[0];
+
+      if (resData) {
+        footerData.value.push({
+          footerTitle: resData.navType?.language?.name,
+          footerLinks:
+            resData.navigations?.map(
+              (footerLink: NavigationItem) => footerLink?.language.name
+            ) ?? [],
+        });
+      }
+    });
+  } catch (error) {
+    console.error("Error fetching footer data:", error);
+  }
+};
+
+onMounted(() => fetchFooterData(currentLanguage.value));
+watch(
+  () => currentLanguage.value,
+  (newLanguage) => {
+    footerData.value = [];
+    fetchFooterData(newLanguage);
+  }
+);
+interface SocialMediaLink {
+  href: string;
+  icon: string;
+}
+
+// an array of social media links
+const socialMediaLinks: SocialMediaLink[] = [
+  {
+    href: "https://www.facebook.com/governmentwebsit",
+    icon: "mdi-facebook",
+  },
+  {
+    href: "https://www.youtube.com/@Iraqigov",
+    icon: "mdi-youtube",
+  },
+  {
+    href: "#",
+    icon: "mdi-twitter",
+  },
+  {
+    href: "https://t.me/cabinetmedia",
+    icon: "mdi-send",
+  },
+];
+</script>
+
 <template>
   <div class="footer-background">
     <v-container class="py-16">
@@ -69,72 +142,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { ref, onMounted } from "vue";
-import { apiService } from "@/apiService";
-
-const footerData = ref<FooterInfo[]>([]);
-
-interface FooterInfo {
-  footerTitle?: string;
-  footerLinks?: string[];
-}
-interface NavigationItem {
-  language: {
-    name: string;
-  };
-}
-
-const fetchFooterData = async () => {
-  try {
-    const footerCols = ["footer-3", "footer-2", "footer-1"];
-    footerCols.forEach(async (key) => {
-      const response = await apiService.fetchFooter("ar", key);
-      const resData = response?.data.items[0];
-
-      if (resData) {
-        footerData.value.push({
-          footerTitle: resData.navType?.language?.name,
-          footerLinks:
-            resData.navigations?.map(
-              (footerLink: NavigationItem) => footerLink?.language.name
-            ) ?? [],
-        });
-      }
-    });
-  } catch (error) {
-    console.error("Error fetching footer data:", error);
-  }
-};
-
-onMounted(fetchFooterData);
-
-interface SocialMediaLink {
-  href: string;
-  icon: string;
-}
-
-// an array of social media links
-const socialMediaLinks: SocialMediaLink[] = [
-  {
-    href: "https://www.facebook.com/governmentwebsit",
-    icon: "mdi-facebook",
-  },
-  {
-    href: "https://www.youtube.com/@Iraqigov",
-    icon: "mdi-youtube",
-  },
-  {
-    href: "#",
-    icon: "mdi-twitter",
-  },
-  {
-    href: "https://t.me/cabinetmedia",
-    icon: "mdi-send",
-  },
-];
-</script>
 
 <style>
 .logo3 {
