@@ -15,7 +15,7 @@ interface NewsCardInfo {
 
 const newsData = ref<NewsCardInfo[]>([]);
 
-const parsenewsElement = (element: any): NewsCardInfo => {
+const parseNewsElement = (element: any): NewsCardInfo => {
   const newsImage = element.dynamicContentLanguages?.[0]?.images?.[0];
   const newsCardTitle = element.dynamicContentLanguages?.[0]?.description;
   const newsCardContentType =
@@ -37,7 +37,7 @@ const fetchNewsData = async () => {
     const items = response?.data?.items;
 
     if (items) {
-      newsData.value = items.map(parsenewsElement);
+      newsData.value = items.map(parseNewsElement);
     } else {
       console.warn("No items found in the response");
     }

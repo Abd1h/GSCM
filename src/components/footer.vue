@@ -87,7 +87,6 @@ interface NavigationItem {
 }
 
 const fetchFooterData = async () => {
-  console.log("this is fooooooottter fetch");
   try {
     const footerCols = ["footer-3", "footer-2", "footer-1"];
     footerCols.forEach(async (key) => {

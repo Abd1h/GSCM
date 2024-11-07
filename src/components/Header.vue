@@ -70,7 +70,7 @@ const toggleTheme = () => {
             </a>
           </div>
           <!-- Language Selector -->
-          <div class="d-flex mx-2">
+          <div class="d-flex mx-2 cursor-pointer">
             <span class="pr-4" @click="changeLanguage('en')">EN</span>
             <span class="pr-4 cursor-pointer" @click="flipWebsite">KR</span>
             <span

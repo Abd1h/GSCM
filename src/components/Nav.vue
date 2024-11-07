@@ -2,11 +2,13 @@
 import { ref, onMounted, computed, watch } from "vue";
 import { apiService } from "@/apiService";
 import { useDisplay } from "vuetify";
+import { useGlobalState } from "../useGolbalState";
+
 interface Language {
   name: string; // Display name, e.g., "دوائر الأمانة العامة ولجانها"
   language: string; // Language code, e.g., "ar"
-  url: string; // URL associated with the item
-  target: string; // Link target, e.g., "self", "blank", etc.
+  url: string;
+  target: string; // Link target, e.g., "_self", "_blank", etc.
 }
 
 interface NavLink {
@@ -14,15 +16,12 @@ interface NavLink {
   children: NavLink[];
 }
 
-const navigationData = ref<NavLink[]>([]);
-import { useGlobalState } from "../useGolbalState";
-
 const { currentLanguage } = useGlobalState();
+const navigationData = ref<NavLink[]>([]);
 
 const setNavigationData = async (language: string) => {
   try {
     const response = await apiService.fetchNavigation(language);
-    console.log(response.data?.items?.[0]);
     if (response) {
       navigationData.value = response.data?.items?.[0]?.navigations;
     }
@@ -30,9 +29,11 @@ const setNavigationData = async (language: string) => {
     console.error("Error fetching navigation:", error);
   }
 };
+
 onMounted(async () => {
   await setNavigationData(currentLanguage.value);
 });
+
 watch(
   () => currentLanguage.value,
   (newLanguage) => {
@@ -41,15 +42,15 @@ watch(
 );
 
 const isSearchActive = ref<boolean>(false);
-const isNavLinksActive = ref<boolean>(false);
-
 const toggleSearch = () => {
   isSearchActive.value = !isSearchActive.value;
-  isNavLinksActive.value = isSearchActive.value; //TEMMMMMMMP
 };
+
+// Display properties
 const { mdAndUp } = useDisplay();
 const isVertical = computed(() => !mdAndUp.value);
 </script>
+
 <template>
   <v-toolbar
     color="#1e1e1e"
@@ -84,7 +85,7 @@ const isVertical = computed(() => !mdAndUp.value);
         ></v-text-field>
       </v-card-text>
 
-      <!-- Call NavList with isVertical prop based on screen size -->
+      <!--  Vertical NavList -->
       <v-menu v-if="isVertical" transition="slide-x-transition">
         <template v-slot:activator="{ props }">
           <v-app-bar-nav-icon class="ml-n3" v-bind="props"></v-app-bar-nav-icon>
@@ -97,7 +98,7 @@ const isVertical = computed(() => !mdAndUp.value);
         />
       </v-menu>
 
-      <!-- Horizontal NavList for large screens -->
+      <!-- Horizontal NavList  -->
       <NavList
         v-else
         :navigationData="navigationData"

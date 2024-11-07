@@ -13,8 +13,6 @@ const props = defineProps({
     required: true,
   },
 });
-import { onMounted } from "vue";
-console.log(onMounted(() => console.log(true)));
 
 const getListClasses = () => {
   if (props.isVertical) {
@@ -40,7 +38,6 @@ const getListClasses = () => {
       </v-list-item-title>
     </v-list-item>
 
-    <!-- Additional item for main link "الرئيسية" -->
     <v-list-item>
       <v-list-item-title>
         <v-btn href="/" target="_self" slim density="default"> الرئيسية </v-btn>
@@ -52,9 +49,9 @@ const getListClasses = () => {
 <style scoped>
 .custom-list {
   color: inherit !important;
-  box-shadow: none !important; /* Removes any shadow */
-  border: none !important; /* Removes any border */
-  background-color: #1e1e1e !important; /* Removes background color */
+  box-shadow: none !important;
+  border: none !important;
+  background-color: #1e1e1e !important;
 }
 
 .custom-list .v-btn {

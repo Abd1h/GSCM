@@ -32,10 +32,8 @@ const fetchSliderData = async () => {
   try {
     const response = await apiService.fetchNews("ar", true);
     const items = response?.data?.items;
-    console.log(items, 2222);
     if (items) {
       sliderData.value = items.map(parseSliderElement);
-      console.log(sliderData.value);
     } else {
       console.warn("No items found in the response");
     }
@@ -43,8 +41,7 @@ const fetchSliderData = async () => {
     console.error("Error fetching slider data:", error);
   }
 };
-
-onMounted(fetchSliderData); //القديم
+onMounted(fetchSliderData);
 </script>
 <template>
   <v-container>
