@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
 import { apiService } from "@/apiService";
 import { useDisplay } from "vuetify";
 interface Language {
@@ -15,17 +15,30 @@ interface NavLink {
 }
 
 const navigationData = ref<NavLink[]>([]);
+import { useGlobalState } from "../useGolbalState";
 
-onMounted(async () => {
+const { currentLanguage } = useGlobalState();
+
+const setNavigationData = async (language: string) => {
   try {
-    const response = await apiService.fetchNavigation("ar");
+    const response = await apiService.fetchNavigation(language);
+    console.log(response.data?.items?.[0]);
     if (response) {
-      navigationData.value = response.data.items[0].navigations;
+      navigationData.value = response.data?.items?.[0]?.navigations;
     }
   } catch (error) {
     console.error("Error fetching navigation:", error);
   }
+};
+onMounted(async () => {
+  await setNavigationData(currentLanguage.value);
 });
+watch(
+  () => currentLanguage.value,
+  (newLanguage) => {
+    setNavigationData(newLanguage);
+  }
+);
 
 const isSearchActive = ref<boolean>(false);
 const isNavLinksActive = ref<boolean>(false);

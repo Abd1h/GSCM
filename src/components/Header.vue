@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { ref, getCurrentInstance } from "vue";
+import { ref } from "vue";
+import { useGlobalState } from "@/useGolbalState";
+
 interface SocialMediaLink {
   href: string;
   icon: string;
@@ -25,11 +27,17 @@ const socialMediaLinks: SocialMediaLink[] = [
   },
 ];
 
+const { setLanguage } = useGlobalState();
+const changeLanguage = (language: string) => {
+  console.log("this output is from Change Language function", language);
+  setLanguage(language);
+};
+
 const flipWebsite = () => {
   document.body.style.transform = "rotate(180deg)";
   document.body.style.transformOrigin = "center";
-  document.body.style.width = "100vw";
-  document.body.style.height = "100vh";
+  document.body.style.width = "100%";
+  document.body.style.height = "100%";
 };
 const resetWebsite = () => {
   document.body.style.transform = "";
@@ -38,11 +46,7 @@ const resetWebsite = () => {
 
 const isDarkTheme = ref(false);
 const toggleTheme = () => {
-  // const vuetify =
-  //   getCurrentInstance().appContext.config.globalProperties.$vuetify;
   isDarkTheme.value = !isDarkTheme.value;
-  // console.log(isDarkTheme.value);
-  // vuetify.theme.dark = isDarkTheme.value;
 };
 </script>
 <template>
@@ -67,9 +71,17 @@ const toggleTheme = () => {
           </div>
           <!-- Language Selector -->
           <div class="d-flex mx-2">
-            <span class="pr-4">EN</span>
+            <span class="pr-4" @click="changeLanguage('en')">EN</span>
             <span class="pr-4 cursor-pointer" @click="flipWebsite">KR</span>
-            <span class="pr-4 cursor-pointer" @click="resetWebsite">AR</span>
+            <span
+              class="pr-4 cursor-pointer"
+              @click="
+                () => {
+                  resetWebsite(), changeLanguage('ar');
+                }
+              "
+              >AR</span
+            >
           </div>
           <!-- Color Toggle Buttons -->
           <div class="d-flex">

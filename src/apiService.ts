@@ -10,7 +10,6 @@ const apiClient = axios.create({
 // Functions for each endpoint
 export const apiService = {
   fetchNavigation(language: string) {
-    console.log("test1");
     return apiClient.get(
       `/api/app/navigation/tree-grouped-by-nav-type?NavTypeSlugs=header`,
       {

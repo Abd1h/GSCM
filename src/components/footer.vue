@@ -87,12 +87,13 @@ interface NavigationItem {
 }
 
 const fetchFooterData = async () => {
+  console.log("this is fooooooottter fetch");
   try {
     const footerCols = ["footer-3", "footer-2", "footer-1"];
     footerCols.forEach(async (key) => {
       const response = await apiService.fetchFooter("ar", key);
       const resData = response?.data.items[0];
-      console.log(resData);
+
       if (resData) {
         footerData.value.push({
           footerTitle: resData.navType?.language?.name,
@@ -103,7 +104,6 @@ const fetchFooterData = async () => {
         });
       }
     });
-    console.log("Fetched Footer Data:", footerData.value);
   } catch (error) {
     console.error("Error fetching footer data:", error);
   }

@@ -1,6 +1,55 @@
+<script setup lang="ts">
+import { ref, onMounted } from "vue";
+import { apiService } from "@/apiService";
+
+interface SliderInfo {
+  sliderImage: string | undefined;
+  sliderCardTitle: string | undefined;
+  sliderCardContentType: string | undefined;
+  sliderCardDate: string | undefined;
+}
+
+const sliderData = ref<SliderInfo[]>([]);
+
+const parseSliderElement = (element: any): SliderInfo => {
+  const sliderImage = element.dynamicContentLanguages?.[0]?.images?.[0];
+  console.log(1, sliderImage);
+  const sliderCardTitle = element.dynamicContentLanguages?.[0]?.description;
+  const sliderCardContentType =
+    element.contentType?.contentTypeLanguages?.[0]?.name;
+  const sliderCardDate =
+    element.contentType?.contentTypeLanguages?.[0]?.creationTime?.split("T")[0];
+
+  return {
+    sliderImage,
+    sliderCardTitle,
+    sliderCardContentType,
+    sliderCardDate,
+  };
+};
+
+const fetchSliderData = async () => {
+  try {
+    const response = await apiService.fetchNews("ar", true);
+    const items = response?.data?.items;
+    console.log(items, 2222);
+    if (items) {
+      sliderData.value = items.map(parseSliderElement);
+      console.log(sliderData.value);
+    } else {
+      console.warn("No items found in the response");
+    }
+  } catch (error) {
+    console.error("Error fetching slider data:", error);
+  }
+};
+
+onMounted(fetchSliderData); //القديم
+</script>
 <template>
   <v-container>
     <v-carousel
+      v-if="sliderData.length"
       hide-delimiter-background
       class="rounded-lg"
       height="70vh"
@@ -50,48 +99,3 @@
     </v-carousel>
   </v-container>
 </template>
-<script setup lang="ts">
-import { ref, onMounted } from "vue";
-import { apiService } from "@/apiService";
-
-interface SliderInfo {
-  sliderImage: string | undefined;
-  sliderCardTitle: string | undefined;
-  sliderCardContentType: string | undefined;
-  sliderCardDate: string | undefined;
-}
-
-const sliderData = ref<SliderInfo[]>([]);
-
-const parseSliderElement = (element: any): SliderInfo => {
-  const sliderImage = element.dynamicContentLanguages?.[0]?.images?.[0];
-  const sliderCardTitle = element.dynamicContentLanguages?.[0]?.description;
-  const sliderCardContentType =
-    element.contentType?.contentTypeLanguages?.[0]?.name;
-  const sliderCardDate =
-    element.contentType?.contentTypeLanguages?.[0]?.creationTime?.split("T")[0];
-
-  return {
-    sliderImage,
-    sliderCardTitle,
-    sliderCardContentType,
-    sliderCardDate,
-  };
-};
-
-const fetchSliderData = async () => {
-  try {
-    const response = await apiService.fetchNews("ar", true);
-    const items = response?.data?.items;
-    if (items) {
-      sliderData.value = items.map(parseSliderElement);
-    } else {
-      console.warn("No items found in the response");
-    }
-  } catch (error) {
-    console.error("Error fetching slider data:", error);
-  }
-};
-
-onMounted(fetchSliderData);
-</script>
