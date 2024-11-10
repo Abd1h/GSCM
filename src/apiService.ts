@@ -26,7 +26,6 @@ export const apiService = {
         IsFeature: isFeature,
         MaxResultCount: 5,
         CategorySlug: "news",
-        // DynamicContentSlug: "y2N8r0-uSKS0Ggc",
       },
     });
   },
@@ -36,9 +35,13 @@ export const apiService = {
       params: { Language: language, NavTypeSlugs: FooterCol },
     });
   },
-  fetchh() {
-    return apiClient.get(
-      `/api/app/dynamic-content/by-filters?DynamicContentSlug=y2N8r0-uSKS0Ggc&Language=ar`
-    );
+  fetchNewsDetials(language: string, slug: string) {
+    return apiClient.get(`/api/app/dynamic-content/by-filters?`, {
+      params: {
+        Language: language,
+        // DynamicContentSlug: "y2N8r0-uSKS0Ggc",
+        DynamicContentSlug: slug,
+      },
+    });
   },
 };

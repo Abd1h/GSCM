@@ -7,14 +7,20 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
+    Editor: typeof import('./src/components/news detaills/Editor.vue')['default']
+    Embed: typeof import('./src/components/news detaills/Embed.vue')['default']
+    EmbedFiles: typeof import('./src/components/news detaills/EmbedFiles.vue')['default']
+    Files: typeof import('./src/components/news detaills/Files.vue')['default']
     Footer: typeof import('./src/components/footer.vue')['default']
     Header: typeof import('./src/components/Header.vue')['default']
     HelloWorld: typeof import('./src/components/HelloWorld.vue')['default']
+    MultiEditor: typeof import('./src/components/news detaills/MultiEditor.vue')['default']
     Nav: typeof import('./src/components/Nav.vue')['default']
     NavList: typeof import('./src/components/NavList.vue')['default']
     News: typeof import('./src/components/News.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     Slider: typeof import('./src/components/Slider.vue')['default']
+    Video: typeof import('./src/components/news detaills/Video.vue')['default']
   }
 }

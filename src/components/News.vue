@@ -1,8 +1,4 @@
 <script setup lang="ts">
-onMounted(async () => {
-  const res = await apiService.fetchh();
-  console.log(111111111111, res);
-});
 import { ref, onMounted, watch } from "vue";
 import { apiService } from "@/apiService";
 import { useGlobalState } from "@/useGolbalState";
@@ -11,6 +7,7 @@ interface NewsCardInfo {
   newsCardTitle: string | undefined;
   newsCardContentType: string | undefined;
   newsCardDate: string | undefined;
+  newsSlug: string | undefined;
 }
 
 const newsData = ref<NewsCardInfo[]>([]);
@@ -22,12 +19,14 @@ const parseNewsElement = (element: any): NewsCardInfo => {
     element.contentType?.contentTypeLanguages?.[0]?.name;
   const newsCardDate =
     element.contentType?.contentTypeLanguages?.[0]?.creationTime?.split("T")[0];
+  const newsSlug = element.slug;
 
   return {
     newsImage,
     newsCardTitle,
     newsCardContentType,
     newsCardDate,
+    newsSlug,
   };
 };
 
@@ -36,7 +35,7 @@ const fetchNewsData = async (language: string) => {
   try {
     const response = await apiService.fetchNews(language, false);
     const items = response?.data?.items;
-
+    console.log(999, "this is all news", items);
     if (items) {
       newsData.value = items.map(parseNewsElement);
     } else {
@@ -113,12 +112,17 @@ watch(
                   </v-card-text>
 
                   <v-card-actions class="justify-end">
-                    <a
-                      class="border pa-1 rounded-lg opacity-60"
+                    <router-link
+                      class="border pa-1 rounded-lg opacity-60 no-link-style"
                       text="اكمل القراءة"
                       variant="text"
-                    ></a>
+                      :to="{
+                        name: 'NewsDetails',
+                        params: { slug: news.newsSlug },
+                      }"
+                    ></router-link>
                   </v-card-actions>
+                  <div>{{ news.newsSlug }}</div>
                 </v-col>
               </v-row>
             </v-card>
@@ -157,5 +161,9 @@ watch(
 
   height: 50px;
   width: 100%;
+}
+.no-link-style {
+  text-decoration: none;
+  color: inherit;
 }
 </style>

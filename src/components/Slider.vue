@@ -14,7 +14,6 @@ const sliderData = ref<SliderInfo[]>([]);
 
 const parseSliderElement = (element: any): SliderInfo => {
   const sliderImage = element.dynamicContentLanguages?.[0]?.images?.[0];
-  console.log(1, sliderImage);
   const sliderCardTitle = element.dynamicContentLanguages?.[0]?.description;
   const sliderCardContentType =
     element.contentType?.contentTypeLanguages?.[0]?.name;
