@@ -18,8 +18,6 @@ export const apiService = {
     );
   },
   fetchNews(language: string, isFeature: boolean) {
-    // IsFeature=false&CategorySlug=news&Language=ar&MaxResultCount=5
-    ///api/app/dynamic-content/by-filters?Language=ar&IsFeature=true
     return apiClient.get(`/api/app/dynamic-content/by-filters`, {
       params: {
         Language: language,

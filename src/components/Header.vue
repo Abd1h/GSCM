@@ -1,51 +1,32 @@
 <script setup lang="ts">
-import { ref } from "vue";
-
 import { useRouter } from "vue-router";
 import { useI18n } from "vue-i18n";
+import { useTheme } from "vuetify";
 
-import { useVuetify } from "vuetify";
-
-const vuetify = useVuetify();
-const toggleTheme1 = () => {
-  vuetify.theme.global.name.value =
-    vuetify.theme.global.name.value === "dark" ? "light" : "dark";
+const theme = useTheme();
+const toggleTheme = () => {
+  theme.global.name.value = theme.global.current.value.dark ? "light" : "dark";
 };
-const { locale } = useI18n();
-const router = useRouter();
 
 interface SocialMediaLink {
   href: string;
   icon: string;
 }
 
-// an array of social media links
 const socialMediaLinks: SocialMediaLink[] = [
-  {
-    href: "https://www.facebook.com/governmentwebsit",
-    icon: "mdi-facebook",
-  },
-  {
-    href: "https://www.youtube.com/@Iraqigov",
-    icon: "mdi-youtube",
-  },
-  {
-    href: "#",
-    icon: "mdi-twitter",
-  },
-  {
-    href: "https://t.me/cabinetmedia",
-    icon: "mdi-send",
-  },
+  { href: "https://www.facebook.com/governmentwebsit", icon: "mdi-facebook" },
+  { href: "https://www.youtube.com/@Iraqigov", icon: "mdi-youtube" },
+  { href: "#", icon: "mdi-twitter" },
+  { href: "https://t.me/cabinetmedia", icon: "mdi-send" },
 ];
 
+const { locale } = useI18n();
+const router = useRouter();
 const changeLanguage = (language: string) => {
-  console.log("this output is from Change Language function", language);
   locale.value = language;
   router.replace({
     path: `/${language}${router.currentRoute.value.fullPath.substring(3)}`,
   });
-  console.log(8888888, locale.value);
 };
 
 const flipWebsite = () => {
@@ -54,16 +35,13 @@ const flipWebsite = () => {
   document.body.style.width = "100%";
   document.body.style.height = "100%";
 };
+
 const resetWebsite = () => {
   document.body.style.transform = "";
   document.body.style.transformOrigin = "";
 };
-
-const isDarkTheme = ref(false);
-const toggleTheme = () => {
-  isDarkTheme.value = !isDarkTheme.value;
-};
 </script>
+
 <template>
   <v-card dir="rtl" class="background-image">
     <v-container style="min-width: 85%">
