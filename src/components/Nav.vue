@@ -126,7 +126,7 @@ const isVertical = computed(() => !mdAndUp.value);
   bottom: -8px;
 }
 .logo-nav {
-  background-image: url("src/assets/img/logo-nav.99acc40.png");
+  background-image: url("@/assets/img/logo-nav.99acc40.png");
   background-size: 100%;
   width: 250px;
   height: 50px;

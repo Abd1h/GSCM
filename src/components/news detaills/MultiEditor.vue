@@ -6,6 +6,7 @@ const props = defineProps({
   },
 });
 const MultiEditorCard = props.content.contents;
+console.log(111, props.content);
 </script>
 <template>
   <v-card class="mt-4">
@@ -13,7 +14,7 @@ const MultiEditorCard = props.content.contents;
       MultiEditorCard[0].title.ar
     }}</v-card-title>
 
-    <v-container v-if="MultiEditorCard.length > 0">
+    <v-container v-if="MultiEditorCard.length > 0 && MultiEditorCard.content">
       <v-card
         v-for="(item, index) in MultiEditorCard"
         :key="index"
@@ -22,8 +23,8 @@ const MultiEditorCard = props.content.contents;
         <v-card-text v-html="item.content.ar"></v-card-text>
       </v-card>
     </v-container>
-    <v-alert v-else type="info" class="mt-3"
-      >No editor content available, L= {{ MultiEditorCard.length }}</v-alert
+    <v-alert v-else type="info" class="mt-3 rounded-t-0"
+      >No editor content available</v-alert
     >
   </v-card>
 </template>

@@ -13,7 +13,7 @@ const props = defineProps({
     <v-card-text
       v-if="props.content.ar"
       v-html="props.content.ar"
-      style="line-height: 1.45rem"
+      style="line-height: 1.45rem; overflow-x: auto"
     ></v-card-text>
     <v-alert dir="ltr" v-else type="info" class="mt-3 rounded-t-0">
       No files available.

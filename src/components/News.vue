@@ -35,7 +35,6 @@ const fetchNewsData = async (language: string) => {
   try {
     const response = await apiService.fetchNews(language, false);
     const items = response?.data?.items;
-    console.log(999, "this is all news", items);
     if (items) {
       newsData.value = items.map(parseNewsElement);
     } else {
@@ -122,7 +121,6 @@ watch(
                       }"
                     ></router-link>
                   </v-card-actions>
-                  <div>{{ news.newsSlug }}</div>
                 </v-col>
               </v-row>
             </v-card>

@@ -145,7 +145,7 @@ const socialMediaLinks: SocialMediaLink[] = [
 
 <style>
 .logo3 {
-  background-image: url("src/assets/img/logo-footer.png");
+  background-image: url("@/assets/img/logo-footer.png");
   background-size: 100%;
   width: 200px;
   height: 60px;
@@ -160,7 +160,7 @@ const socialMediaLinks: SocialMediaLink[] = [
   content: "";
   display: block;
   background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
-    url("src/assets/img/stars.png");
+    url("@/assets/img/stars.png");
   background-size: 64px;
   background-repeat: repeat;
   width: 100%;

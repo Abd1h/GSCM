@@ -123,7 +123,7 @@ const toggleTheme = () => {
       #fff 100%,
       #fff 0
     ),
-    url("src/assets/img/stars.png");
+    url("@/assets/img/stars.png");
   background-repeat: repeat !important; /* Repeat the background image */
   background-size: contain !important; /* Keep the original size of the image */
 

@@ -20,14 +20,14 @@ body {
   margin: 64px !important;
 }
 .logo {
-  background-image: url("src/assets/img/logo.gif");
+  background-image: url("@/assets/img/logo.gif");
   width: 150px !important;
   height: 130px;
   background-size: contain;
 }
 
 .logo-2 {
-  background-image: url("src/assets/img/logo2.png");
+  background-image: url("@/assets/img/logo2.png");
   width: 250px;
   background-size: contain;
   height: 130px;
