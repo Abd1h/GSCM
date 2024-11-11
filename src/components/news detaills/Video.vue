@@ -1,4 +1,6 @@
 <script setup>
+import { useI18n } from "vue-i18n";
+const { locale } = useI18n();
 const props = defineProps({
   content: {
     type: Object,
@@ -9,7 +11,7 @@ const props = defineProps({
 <template>
   <v-card class="mt-4" outlined block>
     <v-card-title dir="rtl" class="pa-4">
-      {{ props.content.name.ar }}
+      {{ props.content.name[locale] }}
     </v-card-title>
 
     <v-responsive

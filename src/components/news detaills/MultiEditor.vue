@@ -1,4 +1,7 @@
 <script setup>
+import { useI18n } from "vue-i18n";
+
+const { locale } = useI18n();
 const props = defineProps({
   content: {
     type: Object,
@@ -11,7 +14,7 @@ console.log(111, props.content);
 <template>
   <v-card class="mt-4">
     <v-card-title dir="rtl" class="pa-4" outlined>{{
-      MultiEditorCard[0].title.ar
+      MultiEditorCard[0].title[locale]
     }}</v-card-title>
 
     <v-container v-if="MultiEditorCard.length > 0 && MultiEditorCard.content">
@@ -20,7 +23,7 @@ console.log(111, props.content);
         :key="index"
         class="mb-4"
       >
-        <v-card-text v-html="item.content.ar"></v-card-text>
+        <v-card-text v-html="item.content[locale]"></v-card-text>
       </v-card>
     </v-container>
     <v-alert v-else type="info" class="mt-3 rounded-t-0"

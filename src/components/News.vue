@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from "vue";
 import { apiService } from "@/apiService";
-import { useGlobalState } from "@/useGolbalState";
+import { useI18n } from "vue-i18n";
+const { locale } = useI18n();
+
 interface NewsCardInfo {
   newsImage: string | undefined;
   newsCardTitle: string | undefined;
@@ -30,7 +32,6 @@ const parseNewsElement = (element: any): NewsCardInfo => {
   };
 };
 
-const { currentLanguage } = useGlobalState();
 const fetchNewsData = async (language: string) => {
   try {
     const response = await apiService.fetchNews(language, false);
@@ -46,10 +47,10 @@ const fetchNewsData = async (language: string) => {
 };
 
 onMounted(() => {
-  fetchNewsData(currentLanguage.value);
+  fetchNewsData(locale.value);
 });
 watch(
-  () => currentLanguage.value,
+  () => locale.value,
   (newLanguage) => fetchNewsData(newLanguage)
 );
 </script>

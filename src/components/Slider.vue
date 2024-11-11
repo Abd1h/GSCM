@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from "vue";
 import { apiService } from "@/apiService";
-import { useGlobalState } from "@/useGolbalState";
+import { useI18n } from "vue-i18n";
 
+const { locale } = useI18n();
 interface SliderInfo {
   sliderImage: string | undefined;
   sliderCardTitle: string | undefined;
@@ -27,7 +28,7 @@ const parseSliderElement = (element: any): SliderInfo => {
     sliderCardDate,
   };
 };
-const { currentLanguage } = useGlobalState();
+
 const fetchSliderData = async (language: string) => {
   try {
     const response = await apiService.fetchNews(language, true);
@@ -42,10 +43,10 @@ const fetchSliderData = async (language: string) => {
   }
 };
 onMounted(() => {
-  fetchSliderData(currentLanguage.value);
+  fetchSliderData(locale.value);
 });
 watch(
-  () => currentLanguage.value,
+  () => locale.value,
   (newLanguage) => fetchSliderData(newLanguage)
 );
 </script>

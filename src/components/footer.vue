@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { ref, onMounted, watch } from "vue";
 import { apiService } from "@/apiService";
-import { useGlobalState } from "@/useGolbalState";
+import { useI18n } from "vue-i18n";
+const { locale } = useI18n();
+
 const footerData = ref<FooterInfo[]>([]);
 
 interface FooterInfo {
@@ -14,7 +16,6 @@ interface NavigationItem {
   };
 }
 
-const { currentLanguage } = useGlobalState();
 const fetchFooterData = async (language: string) => {
   try {
     const footerCols = ["footer-3", "footer-2", "footer-1"];
@@ -37,9 +38,9 @@ const fetchFooterData = async (language: string) => {
   }
 };
 
-onMounted(() => fetchFooterData(currentLanguage.value));
+onMounted(() => fetchFooterData(locale.value));
 watch(
-  () => currentLanguage.value,
+  () => locale.value,
   (newLanguage) => {
     footerData.value = [];
     fetchFooterData(newLanguage);

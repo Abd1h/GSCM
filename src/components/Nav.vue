@@ -2,7 +2,9 @@
 import { ref, onMounted, computed, watch } from "vue";
 import { apiService } from "@/apiService";
 import { useDisplay } from "vuetify";
-import { useGlobalState } from "../useGolbalState";
+
+import { useI18n } from "vue-i18n";
+const { locale } = useI18n();
 
 interface Language {
   name: string; // Display name, e.g., "دوائر الأمانة العامة ولجانها"
@@ -16,7 +18,6 @@ interface NavLink {
   children: NavLink[];
 }
 
-const { currentLanguage } = useGlobalState();
 const navigationData = ref<NavLink[]>([]);
 
 const setNavigationData = async (language: string) => {
@@ -31,11 +32,11 @@ const setNavigationData = async (language: string) => {
 };
 
 onMounted(() => {
-  setNavigationData(currentLanguage.value);
+  setNavigationData(locale.value);
 });
 
 watch(
-  () => currentLanguage.value,
+  () => locale.value,
   (newLanguage) => setNavigationData(newLanguage)
 );
 

@@ -1,6 +1,18 @@
 <script setup lang="ts">
 import { ref } from "vue";
-import { useGlobalState } from "@/useGolbalState";
+
+import { useRouter } from "vue-router";
+import { useI18n } from "vue-i18n";
+
+import { useVuetify } from "vuetify";
+
+const vuetify = useVuetify();
+const toggleTheme1 = () => {
+  vuetify.theme.global.name.value =
+    vuetify.theme.global.name.value === "dark" ? "light" : "dark";
+};
+const { locale } = useI18n();
+const router = useRouter();
 
 interface SocialMediaLink {
   href: string;
@@ -27,10 +39,13 @@ const socialMediaLinks: SocialMediaLink[] = [
   },
 ];
 
-const { setLanguage } = useGlobalState();
 const changeLanguage = (language: string) => {
   console.log("this output is from Change Language function", language);
-  setLanguage(language);
+  locale.value = language;
+  router.replace({
+    path: `/${language}${router.currentRoute.value.fullPath.substring(3)}`,
+  });
+  console.log(8888888, locale.value);
 };
 
 const flipWebsite = () => {

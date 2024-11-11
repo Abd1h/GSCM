@@ -2,11 +2,11 @@
 import { useRoute } from "vue-router";
 import { ref, onMounted, watch } from "vue";
 import { apiService } from "@/apiService";
-import { useGlobalState } from "@/useGolbalState";
+import { useI18n } from "vue-i18n";
 
+const { locale } = useI18n();
 const route = useRoute();
 const newsDetailsItems = ref<any>({});
-const { currentLanguage } = useGlobalState();
 
 const fetchNewsDetials = async (language: string) => {
   try {
@@ -30,9 +30,9 @@ const fetchNewsDetials = async (language: string) => {
   }
 };
 
-onMounted(() => fetchNewsDetials(currentLanguage.value));
+onMounted(() => fetchNewsDetials(locale.value));
 watch(
-  () => currentLanguage.value,
+  () => locale.value,
   (newLanguage) => fetchNewsDetials(newLanguage)
 );
 
